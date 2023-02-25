@@ -1,1 +1,1 @@
-# sql-hackerRank
+# HackerRank SQL all Preparation Practice-solution : Easy, Medium & Hard.
