@@ -1,1 +1,2 @@
-# HackerRank SQL all Preparation Practice-solution : Easy, Medium & Hard.
+# HackerRank SQL all Preparation Practice-solution: 
+## Easy, Medium & Hard.
