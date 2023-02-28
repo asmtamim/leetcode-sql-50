@@ -53,7 +53,7 @@ SELECT distinct CITY from STATION where (ID % 2) = 0 order by CITY ASC;
 SELECT COUNT(CITY) - COUNT(DISTINCT CITY) FROM STATION;
 ```
 
-**10. Query the list of CITY names starting with vowels (i.e., a, e, i, o, or u) from STATION. Your result cannot contain duplicates.**
+**10. Query the list of CITY names starting with vowels (a, e, i, o, u) from STATION. Your result cannot contain duplicates.**
 
 ```sql
 Select DISTINCT(CITY) from STATION 
@@ -61,32 +61,42 @@ where CITY LIKE 'A%' OR CITY LIKE 'E%' OR CITY LIKE 'I%' OR CITY LIKE 'O%' OR CI
 Order by CITY ASC;
 ```
 
-**11. Find the difference between the total number of CITY entries in the table and the number of distinct CITY entries in the table.**
+**11. Query the list of CITY names ending with vowels (a, e, i, o, u) from STATION. Your result cannot contain duplicates.**
 
 ```sql
-SELECT COUNT(CITY) - COUNT(DISTINCT CITY) FROM STATION;
+Select DISTINCT(CITY) from STATION 
+where CITY LIKE '%a' OR CITY LIKE '%e' OR CITY LIKE '%i' OR CITY LIKE '%o' OR CITY LIKE '%u';   
 ```
 
-**12. Find the difference between the total number of CITY entries in the table and the number of distinct CITY entries in the table.**
+**12. Query the list of CITY names from STATION which have vowels (a, e, i, o, u) as both their first and last characters. Your result cannot contain duplicates.**
 
 ```sql
-SELECT COUNT(CITY) - COUNT(DISTINCT CITY) FROM STATION;
+Select DISTINCT CITY from STATION 
+where (CITY LIKE 'A%' OR CITY LIKE 'E%' OR CITY LIKE 'I%' OR CITY LIKE 'O%' OR CITY LIKE 'U%') 
+AND (CITY LIKE '%a' OR CITY LIKE '%e' OR CITY LIKE '%i' OR CITY LIKE '%o' OR CITY LIKE '%u') 
+Order by city ASC;  
 ```
 
-**13. Find the difference between the total number of CITY entries in the table and the number of distinct CITY entries in the table.**
+**13. Query the list of CITY names from STATION that do not start with vowels. Your result cannot contain duplicates.**
 
 ```sql
-SELECT COUNT(CITY) - COUNT(DISTINCT CITY) FROM STATION;
+
 ```
 
-**14. Find the difference between the total number of CITY entries in the table and the number of distinct CITY entries in the table.**
+**14. Query the list of CITY names from STATION that do not end with vowels. Your result cannot contain duplicates.**
 
 ```sql
-SELECT COUNT(CITY) - COUNT(DISTINCT CITY) FROM STATION;
+
 ```
 
-**15. Find the difference between the total number of CITY entries in the table and the number of distinct CITY entries in the table.**
+**15. Query the list of CITY names from STATION that either do not start with vowels or do not end with vowels. Your result cannot contain duplicates.**
 
 ```sql
-SELECT COUNT(CITY) - COUNT(DISTINCT CITY) FROM STATION;
+
+```
+
+**16. Query the list of CITY names from STATION that do not start with vowels and do not end with vowels. Your result cannot contain duplicates.**
+
+```sql
+
 ```
