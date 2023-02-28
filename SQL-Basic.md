@@ -47,14 +47,46 @@ Select CITY, STATE from STATION;
 SELECT distinct CITY from STATION where (ID % 2) = 0 order by CITY ASC;
 ```
 
-**9. Query**
+**9. Find the difference between the total number of CITY entries in the table and the number of distinct CITY entries in the table.**
 
 ```sql
-Select * from CITY Where ID = 1661;
+SELECT COUNT(CITY) - COUNT(DISTINCT CITY) FROM STATION;
 ```
 
-**10. Query**
+**10. Query the list of CITY names starting with vowels (i.e., a, e, i, o, or u) from STATION. Your result cannot contain duplicates.**
 
 ```sql
-Select * from CITY Where ID = 1661;
+Select DISTINCT(CITY) from STATION 
+where CITY LIKE 'A%' OR CITY LIKE 'E%' OR CITY LIKE 'I%' OR CITY LIKE 'O%' OR CITY LIKE 'U%' 
+Order by CITY ASC;
+```
+
+**11. Find the difference between the total number of CITY entries in the table and the number of distinct CITY entries in the table.**
+
+```sql
+SELECT COUNT(CITY) - COUNT(DISTINCT CITY) FROM STATION;
+```
+
+**12. Find the difference between the total number of CITY entries in the table and the number of distinct CITY entries in the table.**
+
+```sql
+SELECT COUNT(CITY) - COUNT(DISTINCT CITY) FROM STATION;
+```
+
+**13. Find the difference between the total number of CITY entries in the table and the number of distinct CITY entries in the table.**
+
+```sql
+SELECT COUNT(CITY) - COUNT(DISTINCT CITY) FROM STATION;
+```
+
+**14. Find the difference between the total number of CITY entries in the table and the number of distinct CITY entries in the table.**
+
+```sql
+SELECT COUNT(CITY) - COUNT(DISTINCT CITY) FROM STATION;
+```
+
+**15. Find the difference between the total number of CITY entries in the table and the number of distinct CITY entries in the table.**
+
+```sql
+SELECT COUNT(CITY) - COUNT(DISTINCT CITY) FROM STATION;
 ```
