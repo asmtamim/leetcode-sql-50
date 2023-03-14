@@ -80,7 +80,8 @@ Order by city ASC;
 **13. Query the list of CITY names from STATION that do not start with vowels. Your result cannot contain duplicates.**
 
 ```sql
-
+Select DISTINCT city from STATION 
+Where NOT (CITY like 'A%' or CITY like 'E%' or CITY like 'I%' or CITY like 'O%' or CITY like 'U%');
 ```
 
 **14. Query the list of CITY names from STATION that do not end with vowels. Your result cannot contain duplicates.**
