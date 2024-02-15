@@ -1,95 +1,128 @@
 
-**1. Query all columns (attributes) for every row in the CITY table.**
+**1757. Recyclable and Low Fat Products.**
 
 ```sql
-Select * from CITY;
+select product_id from Products where low_fats = 'Y' and recyclable = 'Y'
 ```
 
-**2. Query all columns for a city in CITY with the ID 1661.**
+**584. Find Customer Referee.**
 
 ```sql
-Select * from CITY Where ID = 1661;
+select name from Customer 
+    where referee_id <> '2' or referee_id is null
 ```
 
-**3. Query all attributes of every Japanese city in the CITY table. The COUNTRYCODE for Japan is JPN.**
+**595. Big Countries.**
 
 ```sql
-Select * from CITY Where COUNTRYCODE = 'JPN';
+select name, population, area from World
+    where population > '24999999' or area > '2999999'
 ```
 
-**4. Query the names of all the Japanese cities in the CITY table. The COUNTRYCODE for Japan is JPN.**
+**1148. Article Views I.**
 
 ```sql
-Select NAME from CITY Where COUNTRYCODE = 'JPN';
+select DISTINCT author_id as id from Views 
+    where author_id = viewer_id
+        order by author_id asc
 ```
 
-**5. Query all columns for all American cities in the CITY table with populations larger than 100000. The CountryCode for America is USA.**
+**1683. Invalid Tweets.**
 
 ```sql
-Select * from CITY Where CountryCode = 'USA' AND Population > 100000;
+select tweet_id from Tweets
+    where LEN(content) > 15
 ```
 
-**6. Query the NAME field for all American cities in the CITY table with populations larger than 120000. The CountryCode for America is USA.**
+**1378. Replace Employee ID With The Unique Identifier.**
 
 ```sql
-Select NAME from CITY Where CountryCode = 'USA' AND Population > 120000;
+select a.unique_id, b.name from EmployeeUNI a 
+    right join Employees b on a.id = b.id
 ```
 
-**7. Query a list of CITY and STATE from the STATION table.**
+**1068. Product Sales Analysis I.**
 
 ```sql
-Select CITY, STATE from STATION;
+select a.product_name, b.year, b.price from Product a
+    right join Sales b on a.product_id = b.product_id
 ```
 
-**8. Query a list of CITY names from STATION for cities that have an even ID number. Print the results in any order, but exclude duplicates from the answer.**
+**1581. Customer Who Visited but Did Not Make Any Transactions.**
 
 ```sql
-SELECT distinct CITY from STATION where (ID % 2) = 0 order by CITY ASC;
+SELECT customer_id, COUNT(*) as count_no_trans FROM Visits
+WHERE visit_id NOT IN (SELECT DISTINCT visit_id FROM Transactions)
+GROUP BY customer_id;
 ```
 
-**9. Find the difference between the total number of CITY entries in the table and the number of distinct CITY entries in the table.**
-
 ```sql
-SELECT COUNT(CITY) - COUNT(DISTINCT CITY) FROM STATION;
+SELECT v.customer_id, COUNT(v.visit_id) AS count_no_trans FROM Visits v
+LEFT JOIN Transactions t ON v.visit_id = t.visit_id
+WHERE t.transaction_id IS NULL
+GROUP BY v.customer_id
 ```
 
-**10. Query the list of CITY names starting with vowels (a, e, i, o, u) from STATION. Your result cannot contain duplicates.**
+**197. Rising Temperature.**
 
 ```sql
-Select DISTINCT(CITY) from STATION 
-where CITY LIKE 'A%' OR CITY LIKE 'E%' OR CITY LIKE 'I%' OR CITY LIKE 'O%' OR CITY LIKE 'U%' 
-Order by CITY ASC;
+SELECT t.id FROM Weather t
+    INNER JOIN Weather y ON DATEDIFF(DAY, y.recordDate, t.recordDate) = 1 
+        AND t.temperature > y.temperature
 ```
 
-**11. Query the list of CITY names ending with vowels (a, e, i, o, u) from STATION. Your result cannot contain duplicates.**
-
 ```sql
-Select DISTINCT(CITY) from STATION 
-where CITY LIKE '%a' OR CITY LIKE '%e' OR CITY LIKE '%i' OR CITY LIKE '%o' OR CITY LIKE '%u';   
+SELECT DISTINCT a.Id FROM Weather a, Weather b
+  WHERE a.Temperature > b.Temperature AND DATEDIFF(day, a.Recorddate, b.Recorddate) = 1
 ```
 
-**12. Query the list of CITY names from STATION which have vowels (a, e, i, o, u) as both their first and last characters. Your result cannot contain duplicates.**
+**1661. Average Time of Process per Machine.**
 
 ```sql
-Select DISTINCT CITY from STATION 
-where (CITY LIKE 'A%' OR CITY LIKE 'E%' OR CITY LIKE 'I%' OR CITY LIKE 'O%' OR CITY LIKE 'U%') 
-AND (CITY LIKE '%a' OR CITY LIKE '%e' OR CITY LIKE '%i' OR CITY LIKE '%o' OR CITY LIKE '%u') 
-Order by city ASC;  
+SELECT a.machine_id, ROUND(AVG(b.timestamp - a.timestamp), 3) AS processing_time FROM Activity a
+JOIN Activity b ON a.machine_id = b.machine_id AND a.process_id = b.process_id AND a.activity_type = 'start' AND b.activity_type = 'end' 
+    GROUP BY a.machine_id
 ```
 
-**13. Query the list of CITY names from STATION that do not start with vowels. Your result cannot contain duplicates.**
+**577. Employee Bonus.**
 
 ```sql
-Select DISTINCT city from STATION 
-Where NOT (CITY like 'A%' or CITY like 'E%' or CITY like 'I%' or CITY like 'O%' or CITY like 'U%');
+SELECT e.name, b.bonus FROM Employee e 
+    LEFT JOIN Bonus b ON e.empId = b.empId
+        WHERE b.bonus IS NULL OR b.bonus < 1000
 ```
 
-**14. Query the list of CITY names from STATION that do not end with vowels. Your result cannot contain duplicates.**
+**1280. Students and Examinations.**
 
 ```sql
-Select DISTINCT CITY from STATION 
-WHERE NOT (CITY LIKE '%a' OR  CITY  LIKE '%e' OR CITY  LIKE '%i' OR CITY  LIKE '%o' OR CITY  LIKE '%u') 
-order by CITY;
+SELECT s.student_id, s.student_name, u.subject_name, COUNT(e.subject_name) AS attended_exams
+FROM Students s CROSS JOIN Subjects u  
+    LEFT JOIN Examinations e ON s.student_id = e.student_id AND u.subject_name = e.subject_name 
+        GROUP BY s.student_id, s.student_name, u.subject_name
+        ORDER BY s.student_id, u.subject_name
+```
+
+**570. Managers with at Least 5 Direct Reports.**
+
+```sql
+SELECT name FROM Employee
+    WHERE id in (SELECT managerId FROM Employee GROUP BY managerId HAVING COUNT(managerId) >= 5)
+```
+
+```sql
+SELECT e2.name FROM Employee e1 
+    JOIN Employee e2 ON e1.managerId = e2.id 
+        GROUP BY e1.managerId HAVING count(e1.id) >= 5
+```
+
+**1934. Confirmation Rate.**
+
+```sql
+SELECT s.user_id,
+    ISNULL(ROUND(AVG(CASE WHEN c.action = 'confirmed' THEN 1.0 ELSE 0.0 END), 2), 0) AS confirmation_rate
+FROM Signups s
+    LEFT JOIN Confirmations c ON s.user_id = c.user_id
+    GROUP BY s.user_id
 ```
 
 **15. Query the list of CITY names from STATION that either do not start with vowels or do not end with vowels. Your result cannot contain duplicates.**
