@@ -1,3 +1,4 @@
-# HackerRank SQL all Preparation Practice-solution: 
+# LeetCode study plan SQL 50 practice and solution: 
 ## Easy, Medium & Hard. 
-### www.hackerrank.com/domains/sql
+### https://leetcode.com/studyplan/top-sql-50
+### https://leetcode.com/asmtamim
