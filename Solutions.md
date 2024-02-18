@@ -126,10 +126,11 @@ FROM Signups s
     GROUP BY s.user_id
 ```
 
-**17. Your result cannot contain duplicates.**
+**620. Not Boring Movies.**
 
 ```sql
-
+select * from Cinema where description <> 'boring' and (id % 2) = '1' 
+    order by rating desc
 ```
 
 **18. Your result cannot contain duplicates.**
