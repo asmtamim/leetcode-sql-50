@@ -139,25 +139,32 @@ select * from Cinema where description <> 'boring' and (id % 2) = '1'
 SELECT p.product_id,
 ISNULL(ROUND(SUM(p.price * u.units) * 1.0 / SUM(u.units), 2), 0) AS average_price FROM Prices p
     LEFT JOIN UnitsSold u ON p.product_id = u.product_id AND (u.purchase_date BETWEEN p.start_date AND p.end_date)
-    GROUP BY p.product_id;
+    GROUP BY p.product_id
 ```
 
-**19. Your result cannot contain duplicates.**
+**1075. Project Employees I.**
 
 ```sql
-
+select project_id , round(avg(experience_years), 2) as average_years from Project p
+    left join Employee e on p.employee_id = e.employee_id
+        group by project_id
 ```
 
-**20. Your result cannot contain duplicates.**
+**1633. Percentage of Users Attended a Contest.**
 
 ```sql
-
+SELECT contest_id, round(count(user_id)*100.00/(select count(*) from users),2) AS percentage 
+FROM Register
+    GROUP BY contest_id ORDER BY percentage DESC, contest_id
 ```
 
-**21. Your result cannot contain duplicates.**
+**1211. Queries Quality and Percentage.**
 
 ```sql
-
+SELECT query_name, ROUND(AVG(CAST(rating AS DECIMAL) / position), 2) AS quality,
+    ROUND(SUM(CASE WHEN rating < 3 THEN 1.0 ELSE 0.0 END) * 100 / COUNT(*), 2) AS poor_query_percentage
+FROM Queries WHERE query_name IS NOT NULL
+    GROUP BY query_name
 ```
 
 **22. Your result cannot contain duplicates.**
