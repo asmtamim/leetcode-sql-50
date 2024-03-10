@@ -167,22 +167,33 @@ FROM Queries WHERE query_name IS NOT NULL
     GROUP BY query_name
 ```
 
-**22. Your result cannot contain duplicates.**
+**1193. Monthly Transactions I.**
 
 ```sql
-
+SELECT FORMAT(trans_date, 'yyyy-MM') AS month, country,
+  COUNT(*) AS trans_count,
+  SUM(CASE WHEN state = 'approved' THEN 1 ELSE 0 END) AS approved_count,
+  SUM(amount) AS trans_total_amount,
+  SUM(CASE WHEN state = 'approved' THEN amount ELSE 0 END) AS approved_total_amount
+FROM Transactions
+    GROUP BY FORMAT(trans_date, 'yyyy-MM'), country
 ```
 
-**20. Your result cannot contain duplicates.**
+**1174. Immediate Food Delivery II.**
 
 ```sql
-
+SELECT ROUND(AVG(order_date = customer_pref_delivery_date) * 100, 2) AS immediate_percentage FROM Delivery
+    WHERE (customer_id, order_date) IN (SELECT customer_id, MIN(order_date) FROM Delivery GROUP BY 1)
 ```
 
-**21. Your result cannot contain duplicates.**
+**550. Game Play Analysis IV.**
 
 ```sql
-
+SELECT ROUND (
+    SUM(case when DATEADD(day,1,A.event_date) = B.event_date THEN 1 ELSE 0 END) * 1.00 / COUNT(DISTINCT A.player_id), 2
+) as fraction
+from (SELECT player_id, min(event_date) as event_date from activity group by player_id) as A 
+    join activity as B on A.player_id = B.player_id
 ```
 
 **22. Your result cannot contain duplicates.**
