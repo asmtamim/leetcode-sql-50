@@ -1,25 +1,25 @@
 
-**01-1757. Recyclable and Low Fat Products.**
+**01/ 1757. Recyclable and Low Fat Products.**
 
 ```sql
 select product_id from Products where low_fats = 'Y' and recyclable = 'Y'
 ```
 
-**02-584. Find Customer Referee.**
+**02/ 584. Find Customer Referee.**
 
 ```sql
 select name from Customer 
     where referee_id <> '2' or referee_id is null
 ```
 
-**03-595. Big Countries.**
+**03/ 595. Big Countries.**
 
 ```sql
 select name, population, area from World
     where population > '24999999' or area > '2999999'
 ```
 
-**04-1148. Article Views I.**
+**04/ 1148. Article Views I.**
 
 ```sql
 select DISTINCT author_id as id from Views 
@@ -27,28 +27,28 @@ select DISTINCT author_id as id from Views
         order by author_id asc
 ```
 
-**05-1683. Invalid Tweets.**
+**05/ 1683. Invalid Tweets.**
 
 ```sql
 select tweet_id from Tweets
     where LEN(content) > 15
 ```
 
-**06-1378. Replace Employee ID With The Unique Identifier.**
+**06/ 1378. Replace Employee ID With The Unique Identifier.**
 
 ```sql
 select a.unique_id, b.name from EmployeeUNI a 
     right join Employees b on a.id = b.id
 ```
 
-**07-1068. Product Sales Analysis I.**
+**07/ 1068. Product Sales Analysis I.**
 
 ```sql
 select a.product_name, b.year, b.price from Product a
     right join Sales b on a.product_id = b.product_id
 ```
 
-**08-1581. Customer Who Visited but Did Not Make Any Transactions.**
+**08/ 1581. Customer Who Visited but Did Not Make Any Transactions.**
 
 ```sql
 SELECT customer_id, COUNT(*) as count_no_trans FROM Visits
@@ -63,7 +63,7 @@ WHERE t.transaction_id IS NULL
 GROUP BY v.customer_id
 ```
 
-**09-197. Rising Temperature.**
+**09/ 197. Rising Temperature.**
 
 ```sql
 SELECT t.id FROM Weather t
@@ -76,7 +76,7 @@ SELECT DISTINCT a.Id FROM Weather a, Weather b
   WHERE a.Temperature > b.Temperature AND DATEDIFF(day, a.Recorddate, b.Recorddate) = 1
 ```
 
-**10-1661. Average Time of Process per Machine.**
+**10/ 1661. Average Time of Process per Machine.**
 
 ```sql
 SELECT a.machine_id, ROUND(AVG(b.timestamp - a.timestamp), 3) AS processing_time FROM Activity a
@@ -85,7 +85,7 @@ JOIN Activity b ON a.machine_id = b.machine_id AND a.process_id = b.process_id
     GROUP BY a.machine_id
 ```
 
-**11-577. Employee Bonus.**
+**11/ 577. Employee Bonus.**
 
 ```sql
 SELECT e.name, b.bonus FROM Employee e 
@@ -93,7 +93,7 @@ SELECT e.name, b.bonus FROM Employee e
         WHERE b.bonus IS NULL OR b.bonus < 1000
 ```
 
-**12-1280. Students and Examinations.**
+**12/ 1280. Students and Examinations.**
 
 ```sql
 SELECT s.student_id, s.student_name, u.subject_name, COUNT(e.subject_name) AS attended_exams
@@ -103,7 +103,7 @@ FROM Students s CROSS JOIN Subjects u
         ORDER BY s.student_id, u.subject_name
 ```
 
-**13-570. Managers with at Least 5 Direct Reports.**
+**13/ 570. Managers with at Least 5 Direct Reports.**
 
 ```sql
 SELECT name FROM Employee
@@ -116,7 +116,7 @@ SELECT e2.name FROM Employee e1
         GROUP BY e1.managerId HAVING count(e1.id) >= 5
 ```
 
-**14-1934. Confirmation Rate.**
+**14/ 1934. Confirmation Rate.**
 
 ```sql
 SELECT s.user_id,
@@ -126,14 +126,14 @@ FROM Signups s
     GROUP BY s.user_id
 ```
 
-**15-620. Not Boring Movies.**
+**15/ 620. Not Boring Movies.**
 
 ```sql
 select * from Cinema where description <> 'boring' and (id % 2) = '1' 
     order by rating desc
 ```
 
-**16-1251. Average Selling Price.**
+**16/ 1251. Average Selling Price.**
 
 ```sql
 SELECT p.product_id,
@@ -142,7 +142,7 @@ ISNULL(ROUND(SUM(p.price * u.units) * 1.0 / SUM(u.units), 2), 0) AS average_pric
     GROUP BY p.product_id
 ```
 
-**17-1075. Project Employees I.**
+**17/ 1075. Project Employees I.**
 
 ```sql
 select project_id , round(avg(experience_years), 2) as average_years from Project p
@@ -150,7 +150,7 @@ select project_id , round(avg(experience_years), 2) as average_years from Projec
         group by project_id
 ```
 
-**18-1633. Percentage of Users Attended a Contest.**
+**18/ 1633. Percentage of Users Attended a Contest.**
 
 ```sql
 SELECT contest_id, round(count(user_id)*100.00/(select count(*) from users),2) AS percentage 
@@ -158,7 +158,7 @@ FROM Register
     GROUP BY contest_id ORDER BY percentage DESC, contest_id
 ```
 
-**19-1211. Queries Quality and Percentage.**
+**19/ 1211. Queries Quality and Percentage.**
 
 ```sql
 SELECT query_name, ROUND(AVG(CAST(rating AS DECIMAL) / position), 2) AS quality,
@@ -167,7 +167,7 @@ FROM Queries WHERE query_name IS NOT NULL
     GROUP BY query_name
 ```
 
-**20-1193. Monthly Transactions I.**
+**20/ 1193. Monthly Transactions I.**
 
 ```sql
 SELECT FORMAT(trans_date, 'yyyy-MM') AS month, country,
@@ -179,14 +179,14 @@ FROM Transactions
     GROUP BY FORMAT(trans_date, 'yyyy-MM'), country
 ```
 
-**21-1174. Immediate Food Delivery II.**
+**21/ 1174. Immediate Food Delivery II.**
 
 ```sql
 SELECT ROUND(AVG(order_date = customer_pref_delivery_date) * 100, 2) AS immediate_percentage FROM Delivery
     WHERE (customer_id, order_date) IN (SELECT customer_id, MIN(order_date) FROM Delivery GROUP BY 1)
 ```
 
-**22-550. Game Play Analysis IV.**
+**22/ 550. Game Play Analysis IV.**
 
 ```sql
 SELECT ROUND (
@@ -196,103 +196,103 @@ from (SELECT player_id, min(event_date) as event_date from activity group by pla
     join activity as B on A.player_id = B.player_id
 ```
 
-**22. Your result cannot contain duplicates.**
+**23/ 22. Your result cannot contain duplicates.**
 
 ```sql
 
 ```
 
-**23. Your result cannot contain duplicates.**
+**24/ 23. Your result cannot contain duplicates.**
 
 ```sql
 
 ```
 
-**20. Your result cannot contain duplicates.**
+**25/ 20. Your result cannot contain duplicates.**
 
 ```sql
 
 ```
 
-**21. Your result cannot contain duplicates.**
+**26/ 21. Your result cannot contain duplicates.**
 
 ```sql
 
 ```
 
-**22. Your result cannot contain duplicates.**
+**27/ 22. Your result cannot contain duplicates.**
 
 ```sql
 
 ```
 
-**20. Your result cannot contain duplicates.**
+**28/ 20. Your result cannot contain duplicates.**
 
 ```sql
 
 ```
 
-**21. Your result cannot contain duplicates.**
+**29/ 21. Your result cannot contain duplicates.**
 
 ```sql
 
 ```
 
-**22. Your result cannot contain duplicates.**
+**30/ 22. Your result cannot contain duplicates.**
 
 ```sql
 
 ```
 
-**20. Your result cannot contain duplicates.**
+**31/ 20. Your result cannot contain duplicates.**
 
 ```sql
 
 ```
 
-**21. Your result cannot contain duplicates.**
+**32/ 21. Your result cannot contain duplicates.**
 
 ```sql
 
 ```
 
-**22. Your result cannot contain duplicates.**
+**33/ 22. Your result cannot contain duplicates.**
 
 ```sql
 
 ```
 
-**20. Your result cannot contain duplicates.**
+**34/ 20. Your result cannot contain duplicates.**
 
 ```sql
 
 ```
 
-**21. Your result cannot contain duplicates.**
+**35/ 21. Your result cannot contain duplicates.**
 
 ```sql
 
 ```
 
-**22. Your result cannot contain duplicates.**
+**36/ 22. Your result cannot contain duplicates.**
 
 ```sql
 
 ```
 
-**20. Your result cannot contain duplicates.**
+**37/ 20. Your result cannot contain duplicates.**
 
 ```sql
 
 ```
 
-**21. Your result cannot contain duplicates.**
+**38/ 21. Your result cannot contain duplicates.**
 
 ```sql
 
 ```
 
-**22. Your result cannot contain duplicates.**
+**39/ 22. Your result cannot contain duplicates.**
 
 ```sql
 
