@@ -153,8 +153,7 @@ select project_id , round(avg(experience_years), 2) as average_years from Projec
 **18/ 1633. Percentage of Users Attended a Contest.**
 
 ```sql
-SELECT contest_id, round(count(user_id)*100.00/(select count(*) from users),2) AS percentage 
-FROM Register
+SELECT contest_id, round(count(user_id)*100.00/(select count(*) from users),2) AS percentage FROM Register
     GROUP BY contest_id ORDER BY percentage DESC, contest_id
 ```
 
@@ -189,71 +188,95 @@ SELECT ROUND(AVG(order_date = customer_pref_delivery_date) * 100, 2) AS immediat
 **22/ 550. Game Play Analysis IV.**
 
 ```sql
-SELECT ROUND (
-    SUM(case when DATEADD(day,1,A.event_date) = B.event_date THEN 1 ELSE 0 END) * 1.00 / COUNT(DISTINCT A.player_id), 2
-) as fraction
-from (SELECT player_id, min(event_date) as event_date from activity group by player_id) as A 
+SELECT
+ROUND(SUM(case when DATEADD(day,1,A.event_date) = B.event_date THEN 1 ELSE 0 END) * 1.00 / COUNT(DISTINCT A.player_id), 2) as fraction
+FROM (SELECT player_id, min(event_date) as event_date from activity group by player_id) as A 
     join activity as B on A.player_id = B.player_id
 ```
 
-**23/ 22. Your result cannot contain duplicates.**
+**23/ 2356. Number of Unique Subjects Taught by Each Teacher.**
 
 ```sql
-
+SELECT teacher_id, COUNT(DISTINCT subject_id) AS cnt FROM Teacher
+    GROUP BY teacher_id
 ```
 
-**24/ 23. Your result cannot contain duplicates.**
+**24/ 1141. User Activity for the Past 30 Days I.**
 
 ```sql
-
+SELECT activity_date AS day, COUNT(DISTINCT user_id) AS active_users FROM Activity
+    WHERE activity_date BETWEEN '2019-06-28' AND '2019-07-27'
+        GROUP BY activity_date;
 ```
 
-**25/ 20. Your result cannot contain duplicates.**
+**25/ 1070. Product Sales Analysis III.**
 
 ```sql
-
+SELECT product_id, year AS first_year, quantity, price FROM Sales
+    WHERE (product_id, year) IN (SELECT product_id, MIN(year) AS year FROM Sales GROUP BY product_id);
 ```
 
-**26/ 21. Your result cannot contain duplicates.**
+**26/ 596. Classes More Than 5 Students.**
 
 ```sql
-
+SELECT class FROM Courses 
+    GROUP BY class 
+        HAVING COUNT(DISTINCT student) >= 5
 ```
 
-**27/ 22. Your result cannot contain duplicates.**
+**27/ 1729. Find Followers Count.**
 
 ```sql
-
+SELECT user_id, count(DISTINCT follower_id) AS followers_count FROM Followers 
+    GROUP BY user_id
 ```
 
-**28/ 20. Your result cannot contain duplicates.**
+**28/ 619. Biggest Single Number.**
 
 ```sql
-
+SELECT MAX(T.num) AS num FROM (SELECT COUNT(num) AS counts, num FROM MyNumbers GROUP BY num) AS T
+    WHERE T.counts = 1
 ```
 
-**29/ 21. Your result cannot contain duplicates.**
+**29/ 1045. Customers Who Bought All Products.**
 
 ```sql
-
+SELECT customer_id FROM Customer
+    GROUP BY customer_id
+    HAVING COUNT(DISTINCT product_key) = (SELECT COUNT(*) FROM Product)
 ```
 
-**30/ 22. Your result cannot contain duplicates.**
+**30/ 1731. The Number of Employees Which Report to Each Employee.**
 
 ```sql
-
+SELECT e2.employee_id, e2.name, COUNT(e1.reports_to) AS reports_count,
+    ROUND(AVG(CONVERT(FLOAT, e1.age)), 0) AS average_age FROM Employees e1 
+        JOIN Employees e2 ON e1.reports_to = e2.employee_id
+            GROUP BY e2.employee_id, e2.name
+            ORDER BY e2.employee_id
 ```
 
-**31/ 20. Your result cannot contain duplicates.**
+**31/ 1789. Primary Department for Each Employee.**
 
 ```sql
+SELECT employee_id, department_id FROM employee
+    GROUP BY employee_id
+    HAVING COUNT(employee_id) = 1
 
+UNION
+
+SELECT employee_id, department_id FROM employee
+    WHERE primary_flag = 'Y'
 ```
 
-**32/ 21. Your result cannot contain duplicates.**
+**32/ 610. Triangle Judgement.**
 
 ```sql
-
+SELECT x, y, z, (CASE
+                    WHEN x + y > z AND x + z > y AND y + z > x THEN 'Yes'
+                    ELSE 'No'
+                END) AS 'triangle'    
+FROM Triangle
 ```
 
 **33/ 22. Your result cannot contain duplicates.**
@@ -293,6 +316,72 @@ from (SELECT player_id, min(event_date) as event_date from activity group by pla
 ```
 
 **39/ 22. Your result cannot contain duplicates.**
+
+```sql
+
+```
+
+**40/ 22. Your result cannot contain duplicates.**
+
+```sql
+
+```
+
+**41/ 20. Your result cannot contain duplicates.**
+
+```sql
+
+```
+
+**42/ 21. Your result cannot contain duplicates.**
+
+```sql
+
+```
+
+**43/ 22. Your result cannot contain duplicates.**
+
+```sql
+
+```
+
+**44/ 20. Your result cannot contain duplicates.**
+
+```sql
+
+```
+
+**45/ 21. Your result cannot contain duplicates.**
+
+```sql
+
+```
+
+**46/ 22. Your result cannot contain duplicates.**
+
+```sql
+
+```
+
+**47/ 22. Your result cannot contain duplicates.**
+
+```sql
+
+```
+
+**48/ 20. Your result cannot contain duplicates.**
+
+```sql
+
+```
+
+**49/ 21. Your result cannot contain duplicates.**
+
+```sql
+
+```
+
+**50/ 22. Your result cannot contain duplicates.**
 
 ```sql
 
