@@ -188,8 +188,10 @@ SELECT ROUND(AVG(order_date = customer_pref_delivery_date) * 100, 2) AS immediat
 **22/ 550. Game Play Analysis IV.**
 
 ```sql
-SELECT
-ROUND(SUM(case when DATEADD(day,1,A.event_date) = B.event_date THEN 1 ELSE 0 END) * 1.00 / COUNT(DISTINCT A.player_id), 2) as fraction
+SELECT ROUND(SUM(case
+                    when DATEADD(day,1,A.event_date) = B.event_date THEN 1
+                    ELSE 0
+                END) * 1.00 / COUNT(DISTINCT A.player_id), 2) as fraction
 FROM (SELECT player_id, min(event_date) as event_date from activity group by player_id) as A 
     join activity as B on A.player_id = B.player_id
 ```
