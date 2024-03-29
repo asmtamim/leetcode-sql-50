@@ -247,7 +247,7 @@ SELECT customer_id FROM Customer
     HAVING COUNT(DISTINCT product_key) = (SELECT COUNT(*) FROM Product)
 ```
 
-**30/ 1731. The Number of Employees Which Report to Each Employee.**
+**30/ 1731. The Number of Employees Which Report to Each Employee. (MSSQL)**
 
 ```sql
 SELECT e2.employee_id, e2.name, COUNT(e1.reports_to) AS reports_count,
@@ -257,7 +257,7 @@ SELECT e2.employee_id, e2.name, COUNT(e1.reports_to) AS reports_count,
             ORDER BY e2.employee_id
 ```
 
-**31/ 1789. Primary Department for Each Employee.**
+**31/ 1789. Primary Department for Each Employee. (MySql)**
 
 ```sql
 SELECT employee_id, department_id FROM employee
@@ -270,7 +270,7 @@ SELECT employee_id, department_id FROM employee
     WHERE primary_flag = 'Y'
 ```
 
-**32/ 610. Triangle Judgement.**
+**32/ 610. Triangle Judgement. (MSSQL)**
 
 ```sql
 SELECT x, y, z, (CASE
@@ -303,7 +303,7 @@ FROM Triangle
 
 ```
 
-**37/ 1978. Employees Whose Manager Left the Company.**
+**37/ 1978. Employees Whose Manager Left the Company. (MSSQL)**
 
 ```sql
 SELECT e1.employee_id FROM Employees e1
@@ -342,50 +342,77 @@ WHERE e1.salary < 30000 AND e1.manager_id IS NOT NULL
 
 ```
 
-**43/ 22. Your result cannot contain duplicates.**
+**43/ 185. Department Top Three Salaries. (MSSQL)**
 
 ```sql
-
+SELECT d.name AS Department, e.name AS Employee, e.Salary 
+    FROM Employee e LEFT JOIN Department d ON e.departmentId = d.id
+        WHERE (SELECT COUNT(DISTINCT Salary) FROM Employee e2
+                WHERE e2.departmentId = d.id AND e2.Salary >= e.Salary) <= 3 
+            AND d.name IS NOT NULL
+            ORDER BY d.id DESC
 ```
 
-**44/ 20. Your result cannot contain duplicates.**
+**44/ 1667. Fix Names in a Table. (MySql)**
 
 ```sql
-
+SELECT user_id, CONCAT(UPPER(LEFT(name, 1)), LOWER(SUBSTRING(name, 2))) AS name
+FROM Users ORDER BY user_id
 ```
 
-**45/ 21. Your result cannot contain duplicates.**
+**45/ 1527. Patients With a Condition. (MSSQL)**
 
 ```sql
-
+SELECT * FROM Patients 
+    WHERE conditions LIKE '% DIAB1%' OR 
+        conditions LIKE 'DIAB1%'
 ```
 
-**46/ 22. Your result cannot contain duplicates.**
+**46/ 196. Delete Duplicate Emails. (MSSQL)**
 
 ```sql
-
+DELETE p1 FROM Person p1, Person p2
+WHERE p1.Email = p2.Email AND p1.Id > p2.Id
 ```
 
-**47/ 22. Your result cannot contain duplicates.**
+**47/ 176. Second Highest Salary. (MSSQL)**
 
 ```sql
-
+SELECT MAX(Salary) AS SecondHighestSalary FROM Employee
+WHERE Salary < (SELECT MAX(Salary) FROM Employee)
 ```
 
-**48/ 20. Your result cannot contain duplicates.**
+**48/ 1484. Group Sold Products By The Date. (MySql)**
 
 ```sql
-
+SELECT sell_date, COUNT(DISTINCT product) AS num_sold,
+GROUP_CONCAT(DISTINCT product ORDER BY product ASC) AS products
+FROM Activities
+    GROUP BY sell_date
+    ORDER BY sell_date
 ```
 
-**49/ 21. Your result cannot contain duplicates.**
+**49/ 1327. List the Products Ordered in a Period. (MSSQL)**
 
 ```sql
-
+SELECT p.product_name, SUM(o.unit) AS unit FROM Products p
+    JOIN Orders o ON p.product_id = o.product_id
+        WHERE MONTH(o.order_date) = 2
+            AND YEAR(o.order_date) = 2020
+    GROUP BY p.product_name
+    HAVING SUM(o.unit) >= 100
 ```
 
-**50/ 22. Your result cannot contain duplicates.**
+**50/ 1517. Find Users With Valid E-Mails. (MySql + MSSQL)**
 
 ```sql
+SELECT * FROM Users
+WHERE REGEXP_LIKE(mail, '^[A-Za-z]+[A-Za-z0-9\_\.\-]*@leetcode\\.com$')
+```
 
+```sql
+SELECT * FROM Users
+WHERE RIGHT(mail, 13) = '@leetcode.com'
+        AND mail LIKE '[a-zA-Z]%'
+        AND LEFT(mail, LEN(mail)-13) NOT LIKE '%[^0-9a-zA-Z\_\.\-]%'
 ```
