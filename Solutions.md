@@ -279,16 +279,30 @@ SELECT x, y, z, (CASE
 FROM Triangle
 ```
 
-**33/ 22. Your result cannot contain duplicates.**
+**33/ 180. Consecutive Numbers. (MSSQL)**
 
 ```sql
-
+SELECT DISTINCT l1.Num as ConsecutiveNums FROM Logs l1
+    JOIN Logs l2 ON l2.Id = l1.Id - 1
+    JOIN Logs l3 ON l3.Id = l1.Id - 2
+WHERE l1.Num = l2.Num AND l1.Num = l3.Num
 ```
 
-**34/ 20. Your result cannot contain duplicates.**
+**34/ 1164. Product Price at a Given Date. (MySql)**
 
 ```sql
-
+SELECT product_id, price
+FROM
+  (SELECT product_id, new_price AS price FROM Products
+   WHERE (product_id, change_date) IN
+       (SELECT product_id, MAX(change_date) FROM Products
+        WHERE change_date <= '2019-08-16'
+        GROUP BY product_id)
+    UNION 
+        SELECT DISTINCT product_id, 10 AS price FROM Products
+        WHERE product_id NOT IN (SELECT product_id FROM Products WHERE change_date <= '2019-08-16') 
+    ) tmp
+ORDER BY price DESC
 ```
 
 **35/ 21. Your result cannot contain duplicates.**
@@ -312,15 +326,32 @@ WHERE e1.salary < 30000 AND e1.manager_id IS NOT NULL
         ORDER BY e1.employee_id
 ```
 
-**38/ 21. Your result cannot contain duplicates.**
+**38/ 626. Exchange Seats. (MSSQL)**
 
 ```sql
-
+SELECT (CASE WHEN id % 2 = 0 THEN id - 1
+             WHEN id % 2 = 1 AND id != (SELECT MAX(id) FROM seat) THEN id + 1
+             ELSE id END) AS id, student 
+    FROM Seat ORDER BY id
 ```
 
-**39/ 22. Your result cannot contain duplicates.**
+**39/ 1341. Movie Rating. (MySql)**
 
 ```sql
+(SELECT Users.name AS results FROM MovieRating
+INNER JOIN Users USING (user_id)
+GROUP BY user_id
+ORDER BY COUNT(MovieRating.movie_id) DESC, Users.name
+LIMIT 1)
+
+UNION ALL
+
+(SELECT Movies.title AS results FROM MovieRating
+INNER JOIN Movies USING (movie_id)
+WHERE DATE_FORMAT(created_at, '%Y-%m') = '2020-02'
+GROUP BY movie_id
+ORDER BY AVG(MovieRating.rating) DESC, Movies.title
+LIMIT 1)
 
 ```
 
@@ -330,16 +361,31 @@ WHERE e1.salary < 30000 AND e1.manager_id IS NOT NULL
 
 ```
 
-**41/ 20. Your result cannot contain duplicates.**
+**41/ 602. Friend Requests II: Who Has the Most Friends? (MySql)**
 
 ```sql
-
+SELECT rid as id, COUNT(*) AS num FROM
+(
+    SELECT requester_id AS rid FROM RequestAccepted
+    UNION ALL
+    SELECT accepter_id FROM RequestAccepted ) AS tmp
+    
+GROUP BY rid ORDER BY num DESC 
+LIMIT 1
 ```
 
-**42/ 21. Your result cannot contain duplicates.**
+**42/ 585. Investments in 2016. (MySql + MSSQL)**
 
 ```sql
+select round(sum(tiv_2016), 2) as tiv_2016 from insurance
+where tiv_2015 in (select tiv_2015 from insurance group by 1 having count(*) > 1) and 
+concat(lat, lon) in (select concat(lat, lon) from insurance group by lat, lon having count(*) = 1)
+```
 
+```sql
+SELECT ROUND(SUM(tiv_2016), 2) AS tiv_2016 FROM insurance
+WHERE tiv_2015 IN (SELECT tiv_2015 FROM insurance GROUP BY tiv_2015 HAVING COUNT(*) > 1) 
+AND CONCAT(lat, lon) IN (SELECT CONCAT(lat, lon) FROM insurance GROUP BY lat, lon HAVING COUNT(*) = 1)
 ```
 
 **43/ 185. Department Top Three Salaries. (MSSQL)**
