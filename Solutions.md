@@ -305,16 +305,42 @@ FROM
 ORDER BY price DESC
 ```
 
-**35/ 21. Your result cannot contain duplicates.**
+**35/ 1204. Last Person to Fit in the Bus. (MySql)**
 
 ```sql
-
+SELECT p.person_name FROM Queue AS p, Queue AS q
+WHERE p.turn >= q.turn
+    GROUP BY p.person_id
+    HAVING SUM(q.weight) <= 1000
+    ORDER BY p.turn DESC
+    LIMIT 1;
 ```
 
-**36/ 22. Your result cannot contain duplicates.**
+**36/ 1907. Count Salary Categories. (MySql + MSSQL)**
 
 ```sql
+SELECT 'Low Salary' AS Category, SUM(income < 20000) AS accounts_count
+    FROM Accounts
+UNION ALL
+SELECT 'Average Salary' Category, SUM(income >= 20000 AND income <= 50000) AS accounts_count
+    FROM Accounts
+UNION ALL
+SELECT 'High Salary' category, SUM(income > 50000) AS accounts_count
+    FROM Accounts;
+```
 
+```sql
+SELECT 'Low Salary' AS Category,
+    SUM(CASE WHEN income < 20000 THEN 1 ELSE 0 END) AS accounts_count
+    FROM Accounts
+UNION ALL
+SELECT 'Average Salary' AS Category,
+    SUM(CASE WHEN income >= 20000 AND income <= 50000 THEN 1 ELSE 0 END) AS accounts_count
+    FROM Accounts
+UNION ALL
+SELECT 'High Salary' AS Category,
+    SUM(CASE WHEN income > 50000 THEN 1 ELSE 0 END) AS accounts_count
+    FROM Accounts;
 ```
 
 **37/ 1978. Employees Whose Manager Left the Company. (MSSQL)**
@@ -355,10 +381,15 @@ LIMIT 1)
 
 ```
 
-**40/ 22. Your result cannot contain duplicates.**
+**40/ 1321. Restaurant Growth. (MySql)**
 
 ```sql
-
+SELECT a.visited_on, SUM(b.amount) AS amount, ROUND(SUM(b.amount) / 7, 2) AS average_amount
+FROM (SELECT DISTINCT visited_on FROM Customer) AS a 
+    JOIN Customer AS b ON DATEDIFF(a.visited_on, b.visited_on) BETWEEN 0 AND 6
+        WHERE a.visited_on >= (SELECT MIN(visited_on) FROM Customer) + 6
+    GROUP BY visited_on
+    ORDER BY visited_on
 ```
 
 **41/ 602. Friend Requests II: Who Has the Most Friends? (MySql)**
