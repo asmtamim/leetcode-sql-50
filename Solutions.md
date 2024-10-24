@@ -528,7 +528,7 @@ DELETE FROM Person WHERE id NOT IN(SELECT MIN(id) FROM Person GROUP BY email)
 UPDATE Salary SET sex = IIF(sex = 'm', 'f', 'm');
 ```
 
-**607/ 1517. Sales Person. (MSSQL)**
+**56/ 607. Sales Person. (MSSQL)**
 
 ```sql
 SELECT sp.name FROM SalesPerson sp
