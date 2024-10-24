@@ -493,3 +493,50 @@ WHERE RIGHT(mail, 13) = '@leetcode.com'
         AND mail LIKE '[a-zA-Z]%'
         AND LEFT(mail, LEN(mail)-13) NOT LIKE '%[^0-9a-zA-Z\_\.\-]%'
 ```
+
+**51/ 175. Combine Two Tables. (MSSQL)**
+
+```sql
+SELECT p.firstName, p.lastName, a.city, a.state FROM Person p
+LEFT JOIN Address a ON p.personId = a.personId
+```
+
+**52/ 182. Duplicate Emails. (MSSQL)**
+
+```sql
+Select Email=email from Person
+    GROUP BY email HAVING COUNT(email) > 1
+```
+
+**53/ 183. Customers Who Never Order. (MSSQL)**
+
+```sql
+SELECT Customers = C.name FROM Customers C
+    LEFT JOIN Orders O ON C.id = O.customerId
+        WHERE O.customerId IS NULL
+```
+
+**54/ 196. Delete Duplicate Emails. (MSSql)**
+
+```sql
+DELETE FROM Person WHERE id NOT IN(SELECT MIN(id) FROM Person GROUP BY email)
+```
+
+**55/ 627. Swap Salary. (MSSQL)**
+
+```sql
+UPDATE Salary SET sex = IIF(sex = 'm', 'f', 'm');
+```
+
+**607/ 1517. Sales Person. (MSSQL)**
+
+```sql
+SELECT sp.name FROM SalesPerson sp
+WHERE sp.sales_id NOT IN (
+    SELECT o.sales_id FROM Orders o
+    JOIN Company c ON o.com_id = c.com_id
+        WHERE c.name = 'RED'
+)
+```
+
+
